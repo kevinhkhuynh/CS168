@@ -51,10 +51,10 @@ Train our model:
 python train.py --batch 256 --learning_rate 5e-4 --training_prop 0.9 --max_steps 10000 --checkpoint_step 500 --loss_step 25 
 ```
 
-##### test.py
+##### predict.py
 
 ```
-Usage: test.py [OPTIONS]
+Usage: predict.py [OPTIONS]
 
 Options:
   --fchu1 FCHU1    Number of hidden units in FC1 layer. This should be identical to the one used in the model 
@@ -69,29 +69,7 @@ Example
 
 Predict on the testing images using our trained model:
 ```
-python test.py --fchu1 512 --format png --out ../Data/DRIVE/tmp/ --inp ../Data/DRIVE/test/ --model ../Data/models/model1/model.ckpt-7999
-```
-
-
-Example usage:
-
-```
-python train.py --batch 256 --learning_rate 5e-4 --training_prop 0.9 --max_steps 10000 --checkpoint_step 500 --loss_step 25 
-```
-
-##### test.py
-
-```
-Usage: test.py [OPTIONS]
-
-Options:
-  --fchu1 FCHU1    Number of hidden units in FC1 layer. This should be identical to the one used in the model 
-                   [Default - 256]
-  --out OUT        Directory to put rendered images to
-  --inp INP        Directory containing images for testing
-  --model MODEL    Path to the saved tensorflow model checkpoint
-  --format FORMAT  Format to save the images in. [Available formats: npz, jpg and png]
-
+python predict.py --fchu1 512 --format png --out ../Data/DRIVE/tmp/ --inp ../Data/DRIVE/test/ --model ../Data/models/model1/model.ckpt-7999
 ```
 
 This code is an adaptation of https://github.com/KGPML/Deep-Vessel. However, we built our own neural network architecture on top of this code. We only used this code to preprocess the images and as a backend for the training. The neural network architecture, the requirements.sh, and the code to obtain the error metrics for the predictions is our original work.
