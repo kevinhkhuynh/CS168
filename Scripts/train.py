@@ -125,41 +125,38 @@ def inference(images, keep_prob, fc_hidden_units1):
     # Flattening the 3D image into a 1D array
     x_image = tf.reshape(images, [-1,PATCH_DIM,PATCH_DIM,3])
 
-    # here we call the conv2d function we had defined above and pass the input image x, weights wc1 and bias bc1.
+    # Convolution Layer
     conv1 = conv2d(x_image, weights['wc1'], biases['bc1'], padding="VALID")
-
-    print conv1.get_shape().as_list()
 
     # Convolution Layer
     conv2 = conv2d(conv1, weights['wc2'], biases['bc2'])
-    # Max Pooling (down-sampling), this chooses the max value from a 2*2 matrix window and outputs a 14*14 matrix.
+
+    # Max-pooling Layer
     pool1 = maxpool2d(conv2, k=2)
 
-    print pool1.get_shape().as_list()
-
+    # Convolution Layer
     conv3 = conv2d(pool1, weights['wc3'], biases['bc3'])
-    # Max Pooling (down-sampling), this chooses the max value from a 2*2 matrix window and outputs a 14*14 matrix.
+
+    # Max-pooling Layer
     pool2 = maxpool2d(conv3, k=2)
 
-    print pool2.get_shape().as_list()
-
+    # Convolution Layer
     conv4 = conv2d(pool2, weights['wc4'], biases['bc4'])
-    # Max Pooling (down-sampling), this chooses the max value from a 2*2 matrix window and outputs a 14*14 matrix.
+
+    # Max-pooling Layer
     pool3 = maxpool2d(conv4, k=2)
 
-    print pool3.get_shape().as_list()
-    #
-    # tf_shape = tf.shape(weights['wd1'])
-    # tf_shape_prod = tf.reduce_prod(tf.shape(weights['wd1'])[1:])
+    # Flatten
+    fc1 = tf.reshape(pool3, [-1,weights['wd1'].get_shape().as_list()[0]])
 
     # Fully connected layer
-    # Reshape conv2 output to fit fully connected layer input
-    fc1 = tf.reshape(pool3, [-1,weights['wd1'].get_shape().as_list()[0]])
     fc1 = tf.add(tf.matmul(fc1, weights['wd1']), biases['bd1'])
     fc1 = tf.nn.relu(fc1)
+
+    # Dropout
     fc1_drop = tf.nn.dropout(fc1, keep_prob)
-    # Output, class prediction
-    # finally we multiply the fully connected layer with the weights and add a bias term.
+
+    # Final fully connected layer
     out = tf.add(tf.matmul(fc1_drop, weights['out']), biases['out'])
     return out
 
