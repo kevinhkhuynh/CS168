@@ -48,7 +48,7 @@ Options:
 
 Train our model:
 ```
-python train.py --batch 256 --learning_rate 5e-4 --training_prop 0.9 --max_steps 10000 --checkpoint_step 500 --loss_step 25 
+python train.py --batch 256 --learning_rate 5e-4 --training_prop 0.9 --max_steps 14000 --checkpoint_step 500 --loss_step 25 
 ```
 
 ##### predict.py
@@ -71,5 +71,7 @@ Predict on the testing images using our trained model:
 ```
 python predict.py --fchu1 512 --format png --out ../Data/DRIVE/tmp/ --inp ../Data/DRIVE/test/ --model ../Data/models/model1/model.ckpt-7999
 ```
+
+These commands will train our optimal model. To tune the hyperparameters as we have done in the paper, run train.py and subsequently, predict.py, with the correct options for each individual model.
 
 This code is an adaptation of https://github.com/KGPML/Deep-Vessel. However, we built our own neural network architecture on top of this code. We only used this code to preprocess the images and as a backend for the training. The neural network architecture, the requirements.sh, and the code to obtain the error metrics for the predictions is our original work.
