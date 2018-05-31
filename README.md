@@ -13,11 +13,15 @@ In order to run this code, please set up the directory as follows:
 ```
 CS168
 |-- Scripts
+|   |-- predict.py
+|   |-- preprocess.py
+|   |-- train.py
 |-- Data
 |   |-- DRIVE
 |   |   |-- test
 |   |   |-- training
 |-- README.md
+|-- requirements.sh
 ```
 
 ## Usage
