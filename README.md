@@ -9,6 +9,8 @@ Run the following requirements .sh file to obtain the needed libraries:
 sh requirements.sh
 ```
 
+The requirements file above runs a virtualenv for your Python interpreter. It is important that this virtualenv remains running as you use this code as this repository only works with specific versions of Python and TensorFlow.
+
 In order to run this code, please set up the directory as follows:
 ```
 CS168
