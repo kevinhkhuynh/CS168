@@ -46,7 +46,7 @@ Options:
   --model_name MODEL_NAME                 Index of the model [Default - '1']
 ```
 
-Train the model:
+Train our model:
 ```
 python train.py --batch 256 --learning_rate 5e-4 --training_prop 0.9 --max_steps 10000 --checkpoint_step 500 --loss_step 25 
 ```
@@ -67,7 +67,7 @@ Options:
 ```
 Example 
 
-Predict on the testing images using the trained model:
+Predict on the testing images using our trained model:
 ```
 python test.py --fchu1 512 --format png --out ../Data/DRIVE/tmp/ --inp ../Data/DRIVE/test/ --model ../Data/models/model1/model.ckpt-7999
 ```
