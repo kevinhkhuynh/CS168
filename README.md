@@ -1,48 +1,36 @@
 # 2D Retinal Vessel Segmentation using Convolutional Neural Networks
 
-Obtain retina images here:
-
-https://www.isi.uu.nl/Research/Databases/DRIVE/
+Download the DRIVE dataset here: https://www.isi.uu.nl/Research/Databases/DRIVE/
 
 ## Setup
 
-Run the following requirements .sh file:
+Run the following requirements .sh file to obtain the needed libraries:
+```
 sh requirements.sh
+```
 
-
-Download the DRIVE dataset here: https://www.isi.uu.nl/Research/Databases/DRIVE/
+The requirements file above runs a virtualenv for your Python interpreter. It is important that this virtualenv remains running as you use this code as this repository only works with specific versions of Python and TensorFlow.
 
 In order to run this code, please set up the directory as follows:
 ```
 CS168
 |-- Scripts
+|   |-- predict.py
+|   |-- preprocess.py
+|   |-- train.py
 |-- Data
 |   |-- DRIVE
 |   |   |-- test
 |   |   |-- training
 |-- README.md
+|-- requirements.sh
 ```
-
-<hr>
 
 ## Usage
 
-### Scripts
-
 Run these scripts from within the ```Scripts``` folder
 
-##### []reprocess.py
-
-```
-Usage: preprocess.py [OPTIONS]
-
-Options:
-  --total_patches TOTAL_PATCHES 
-                        Total number of training images/patches to be used [Default - 4800]
-```
-
-Example usage:
-
+Preprocess the images:
 ```
 python preprocess.py --total_patches 120000 
 ```
@@ -64,16 +52,15 @@ Options:
   --model_name MODEL_NAME                 Index of the model [Default - '1']
 ```
 
-Example usage:
+Train our model:
+```
+python train.py --batch 256 --learning_rate 5e-4 --training_prop 0.9 --max_steps 14000 --checkpoint_step 500 --loss_step 25 
+```
+
+##### predict.py
 
 ```
-python train.py --batch 256 --learning_rate 5e-4 --training_prop 0.9 --max_steps 10000 --checkpoint_step 500 --loss_step 25 
-```
-
-##### test.py
-
-```
-Usage: test.py [OPTIONS]
+Usage: predict.py [OPTIONS]
 
 Options:
   --fchu1 FCHU1    Number of hidden units in FC1 layer. This should be identical to the one used in the model 
@@ -84,10 +71,13 @@ Options:
   --format FORMAT  Format to save the images in. [Available formats: npz, jpg and png]
 
 ```
-Example usage:
+Example 
 
-We used
+Predict on the testing images using our trained model:
 ```
-python test.py --fchu1 512 --format png --out ../Data/DRIVE/tmp/ --inp ../Data/DRIVE/test/ --model ../Data/models/model1/model.ckpt-7999
+python predict.py --fchu1 512 --format png --out ../Data/DRIVE/tmp/ --inp ../Data/DRIVE/test/ --model ../Data/models/model1/model.ckpt-7999
+```
 
-```
+These commands will train our optimal model. To tune the hyperparameters as we have done in the paper, run train.py and subsequently, predict.py, with the correct options for each individual model.
+
+This code is an adaptation of https://github.com/KGPML/Deep-Vessel. However, we built our own neural network architecture on top of this code. We only used this code to preprocess the images and as a backend for the training. The neural network architecture, the requirements.sh, and the code to obtain the error metrics for the predictions is our original work.
