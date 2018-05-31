@@ -20,8 +20,6 @@ CS168
 |-- README.md
 ```
 
-<hr>
-
 ## Usage
 
 Run these scripts from within the ```Scripts``` folder
