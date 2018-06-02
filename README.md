@@ -80,6 +80,10 @@ python predict.py --fchu1 512 --format png --out ../Data/DRIVE/tmp/ --inp ../Dat
 
 ##### metrics.py
 
+```
+Usage: predict.py
+```
+
 Example 
 
 Obtain the maximum average accuracy (and best confidence threshold), AUROC curve, precision-recall curve, and Kappa score for your model against 1st_manual annotations:
