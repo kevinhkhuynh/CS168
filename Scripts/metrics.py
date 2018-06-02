@@ -8,6 +8,8 @@ test_base_directory = "../Data/DRIVE/tmp/"
 manual1 = []
 test = []
 
+prior_threshold = True
+
 # load images
 for i in range(1,21):
     if i < 10:
@@ -31,8 +33,18 @@ for i in range(len(manual1)):
 accuracy = []
 thresholds = []
 
-for j in xrange(0,65535,100):
+if prior_threshold:
+    start = 61800
+    end = 61900
+    step = 100
+else:
+    start = 60000
+    end = 65535
+    step = 100
+
+for j in xrange(start,end,step):
     y_pred = np.copy(test)
+    print "Testing current threshold: " + str(j)
     for i in range(len(test)):
         if test[i] >= j:
             y_pred[i] = 1
@@ -40,10 +52,9 @@ for j in xrange(0,65535,100):
             y_pred[i] = 0
     accuracy.append( accuracy_score(manual1, y_pred))
     thresholds.append(j)
-
-print "maximum average accuracy = " + max(accuracy)
-print "threshold = " + threshold
 threshold = thresholds[accuracy.index(max(accuracy))]
+print "maximum average accuracy = " + str(max(accuracy))
+print "threshold = " + str(threshold)
 y_pred = np.copy(test)
 for i in range(len(test)):
     if test[i] >= threshold:
@@ -52,11 +63,11 @@ for i in range(len(test)):
         y_pred[i] = 0
 
 # obtain kappa
-print "kappa = " + cohen_kappa_score(y_pred, manual1)
+print "kappa = " + str(cohen_kappa_score(y_pred, manual1))
 
 # obtain probability confidence scores
 y_prob = np.copy(test).astype(float)
-for idx, pixel in enumerate(m):
+for idx, pixel in enumerate(test):
     y_prob[idx] = y_prob[idx] / 65535
 
 # AUROC
