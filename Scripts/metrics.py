@@ -63,7 +63,7 @@ for i in range(len(test)):
         y_pred[i] = 0
 
 # obtain kappa
-print "kappa = " + str(cohen_kappa_score(y_pred, manual1))
+print "kappa = " + str(cohen_kappa_score(manual1, y_pred))
 
 # obtain probability confidence scores
 y_prob = np.copy(test).astype(float)
