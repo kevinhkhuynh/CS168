@@ -1,7 +1,5 @@
 # 2D Retinal Vessel Segmentation using Convolutional Neural Networks
 
-Download the DRIVE dataset here: https://www.isi.uu.nl/Research/Databases/DRIVE/
-
 ## Setup
 
 Run the following requirements .sh file to obtain the needed libraries:
@@ -15,12 +13,14 @@ In order to run this code, please set up the directory as follows:
 ```
 CS168
 |-- Scripts
+|   |-- metrics.py
 |   |-- predict.py
 |   |-- preprocess.py
 |   |-- train.py
 |-- Data
 |   |-- DRIVE
 |   |   |-- test
+|   |   |-- tmp (CONTAINS OUR PREDICTED IMAGE SEGMENTATIONS FOR TESTING IMAGES)
 |   |   |-- training
 |-- README.md
 |-- requirements.sh
@@ -78,6 +78,16 @@ Predict on the testing images using our trained model:
 python predict.py --fchu1 512 --format png --out ../Data/DRIVE/tmp/ --inp ../Data/DRIVE/test/ --model ../Data/models/model1/model.ckpt-7999
 ```
 
+##### metrics.py
+
+Example 
+
+Obtain the maximum average accuracy (and best confidence threshold), AUROC curve, precision-recall curve, and Kappa score for your model against 1st_manual annotations:
+
+```
+python metrics.py
+```
+
 These commands will train our optimal model. To tune the hyperparameters as we have done in the paper, run train.py and subsequently, predict.py, with the correct options for each individual model.
 
-This code is an adaptation of https://github.com/KGPML/Deep-Vessel. However, we built our own neural network architecture on top of this code. We only used this code to preprocess the images and as a backend for the training. The neural network architecture, the requirements.sh, and the code to obtain the error metrics for the predictions is our original work.
+This code is an adaptation of https://github.com/KGPML/Deep-Vessel. However, we built our own neural network architecture on top of this code. We only used this code to pre-process the images and as a backend for the training. The neural network architecture, the requirements.sh, and metrics.py is our original work. Our model's predicted image segmentations for the testing images are located in Data/DRIVE/tmp/.
