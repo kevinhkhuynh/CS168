@@ -81,12 +81,12 @@ for i in range(2):
 plt.figure()
 lw = 2
 plt.plot(fpr[1], tpr[1], color='black',
-         lw=lw, label='ROC curve (area = %0.4f)' % roc_auc[1])
+         lw=lw, label='ROC Curve (Area = %0.4f)' % roc_auc[1])
 plt.xlim([0.0, 1.0])
 plt.ylim([0.0, 1.05])
 plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
-plt.title('Receiver operating characteristic example')
+plt.title('Receiver Operating Characteristic Curve')
 plt.legend(loc="lower right")
 plt.show()
 
@@ -98,11 +98,11 @@ plt.step(recall, precision, color='b', alpha=0.2,
          where='post')
 plt.fill_between(recall, precision, step='post', alpha=0.2,
                  color='b')
-
+plt.plot(label='AP = %0.4f' %average_precision)
 plt.xlabel('Recall')
 plt.ylabel('Precision')
 plt.ylim([0.0, 1.05])
 plt.xlim([0.0, 1.0])
-plt.title('2-class Precision-Recall curve: AP={0:0.4f}'.format(
+plt.title('Precision-Recall Curve: AP={0:0.4f}'.format(
                                                                average_precision))
 plt.show()
